@@ -1,0 +1,38 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity proced02 is port(
+	ent50hz: in bit;
+	--u1hzx : diplay das unidadades de clock de 1 hertz de numero x
+	--d1hzx : diplay das dezenas de clock de 1 hertz de numero x
+	u1hz0 ,u1hz1 ,u1hz2 ,u1hz3 ,u1hz4 ,u1hz5 ,u1hz6 ,d1hz0 ,d1hz1 ,d1hz2 ,d1hz3 ,d1hz4 ,d1hz5 ,d1hz6 : out bit
+);
+end proced02;
+
+architecture arc_proced02 of proced02 is
+	component clock is  port(
+		ent: in bit;
+		s10hz,s1hz: out bit); -- sinal 10hz; sinal 1hz
+	end component;
+
+	component sdisp is port(
+		entclk: in bit;
+		unid0,unid1,unid2,unid3,unid4,unid5,unid6: out bit;   --saida display unidadades
+		deze0,deze1,deze2,deze3,deze4,deze5,deze6: out bit); --saida display dezenas
+	end component;
+
+	signal aux10hz, aux1hz: bit; -- sinal 10hz; sinal 1hz
+
+begin
+
+	bloc_clk: clock port map (ent => ent50hz,s10hz => aux10hz,s1hz => aux1hz);
+
+	bloc_disp10hz: sdisp port map (entclk => aux10hz,unid0 => u10hz0,unid1 => u10hz1,unid2 => u10hz2,unid3 => u10hz3,unid4 => u10hz4,
+	unid5 => u10hz5,unid6 => u10hz6,deze0 => d10hz0,deze1 => d10hz1,deze2 => d10hz2,deze3 => d10hz3,deze4 => d10hz4,deze5 => d10hz5,deze6 => d10hz6);
+
+	bloc_disp1hz: sdisp port map (entclk => aux1hz,unid0 => u1hz0,unid1 => u1hz1,unid2 => u1hz2,unid3 => u1hz3,unid4 => u1hz4,
+	unid5 => u1hz5,unid6 => u1hz6,deze0 => d1hz0,deze1 => d1hz1,deze2 => d1hz2,deze3 => d1hz3,deze4 => d1hz4,deze5 => d1hz5,deze6 => d1hz6);
+
+end arc_proced02;
+
+

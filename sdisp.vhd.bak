@@ -1,0 +1,45 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity sdisp is port(
+	entclk: in bit;
+	
+	unid0,unid1,unid2,unid3,unid4,unid5,unid6: out bit;   --saida display unidadades
+	deze0,deze1,deze2,deze3,deze4,deze5,deze6: out bit --saida display dezenas
+);
+end sdisp;
+
+architecture arc_sdisp of sdisp is
+
+signal cont: integer range 1 to 5 :=1;
+
+begin
+	process(entclk)
+	begin
+		if ((entclk = '1') and entclk 'event) then 
+			if (cont = 5) then
+				cont <= 1;
+			else
+				cont <= cont + 1;
+			end if;
+		end if;
+		
+		if (cont = 1) then	unid0 <= '0'; unid1 <= '0'; unid2 <= '0'; unid3 <= '0'; unid4 <= '1'; unid5 <= '1'; unid6 <= '0';
+									deze0 <= '0'; deze1 <= '0'; deze2 <= '0'; deze3 <= '0'; deze4 <= '0'; deze5 <= '0'; deze6 <= '1';
+		end if;
+
+		if (cont = 2) then	unid0 <= '0'; unid1 <= '1'; unid2 <= '0'; unid3 <= '0'; unid4 <= '0'; unid5 <= '0'; unid6 <= '0';
+									deze0 <= '0'; deze1 <= '0'; deze2 <= '0'; deze3 <= '0'; deze4 <= '0'; deze5 <= '0'; deze6 <= '1';
+		end if;
+
+		if (cont = 3) then	unid0 <= '0'; unid1 <= '0'; unid2 <= '0'; unid3 <= '0'; unid4 <= '1'; unid5 <= '0'; unid6 <= '0';
+									deze0 <= '0'; deze1 <= '0'; deze2 <= '0'; deze3 <= '0'; deze4 <= '0'; deze5 <= '0'; deze6 <= '1';
+		end if;
+
+		if (cont = 4) then	unid0 <= '0'; unid1 <= '0'; unid2 <= '1'; unid3 <= '0'; unid4 <= '0'; unid5 <= '1'; unid6 <= '0';
+									deze0 <= '1'; deze1 <= '0'; deze2 <= '0'; deze3 <= '1'; deze4 <= '1'; deze5 <= '1'; deze6 <= '1';
+		end if;
+		
+	end process;
+	
+end arc_sdisp;
